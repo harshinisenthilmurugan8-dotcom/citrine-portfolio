@@ -1,43 +1,56 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { PlayCircle, CaretDown, CaretUp } from '@phosphor-icons/react';
+import { PlayCircle, CaretDown } from '@phosphor-icons/react';
 import ScrollReveal from '../ui/ScrollReveal';
 
 const videos = [
   {
-    id: 'fMvIXzRN3hg',
-    title: 'Jokes - Vinod Naraen Stand Up Comedy',
-    url: 'https://youtu.be/fMvIXzRN3hg?si=n9C0nHrd7wj8SAYf',
+    id: 'XhQIeSqKyA8',
+    title: 'Vinod Naraen - Crowds & Corpses (Official Lyric Video)',
+    url: 'https://youtu.be/XhQIeSqKyA8?si=Tp63yAASRw4-51Hl',
   },
   {
-    id: 'PSsX0U8_chg',
-    title: 'Blend of Languages - Vinod Naraen Stand Up Comedy',
-    url: 'https://youtube.com/shorts/PSsX0U8_chg?si=NEx3b_00iEEBPHFt',
+    id: 'xyAR5PZV8R0',
+    title: 'Vinod Naraen - Beach Beach Mein (Official Lyric Video)',
+    url: 'https://youtu.be/xyAR5PZV8R0?si=Qj6p26iGHu0rqTtK',
   },
   {
-    id: '3uGQXBgIPeA',
-    title: 'Everything Is Political In This Country',
-    url: 'https://youtube.com/shorts/3uGQXBgIPeA?si=2f5pFijth3b7Gkcc',
+    id: 'PdpB-ilhE-M',
+    title: 'Vinod Naraen - Front Page Love (Official Lyric Video)',
+    url: 'https://www.youtube.com/watch?v=PdpB-ilhE-M',
+  },
+  {
+    id: 'FanMobfGRnk',
+    title: 'Vinod Naraen - Song Of Dreams (Official Lyric Video)',
+    url: 'https://www.youtube.com/watch?v=FanMobfGRnk',
+  },
+  {
+    id: 'kO-BIRv5OYA',
+    title: 'Vinod Naraen - The Nation Wants To Know Version.1 (Official Lyric Video)',
+    url: 'https://www.youtube.com/watch?v=kO-BIRv5OYA',
+  },
+  {
+    id: 'CyhxwFH-dVE',
+    title: 'Vinod Naraen - Doo-bee-doo-bah! (Official Lyric Video)',
+    url: 'https://www.youtube.com/watch?v=CyhxwFH-dVE',
   },
 ];
 
-export default function ComedySection() {
+export default function MusicSection() {
   const [showAll, setShowAll] = useState(false);
 
-  const displayedVideos = showAll ? videos : videos.slice(0, 3);
-
   return (
-    <section id="comedy" className="relative py-20 md:py-32 px-4 md:px-8 lg:px-12 bg-wine-900 border-t border-wine-700/30">
+    <section id="music" className="relative py-20 md:py-32 px-4 md:px-8 lg:px-12 bg-wine-900 border-t border-wine-700/30">
       <div className="max-w-7xl mx-auto">
         <ScrollReveal>
           <div className="mb-12 md:mb-20 text-center">
-            <p className="text-gold-500 tracking-[0.2em] uppercase text-xs mb-4 font-mono">Stand-Up Comedy</p>
+            <p className="text-gold-500 tracking-[0.2em] uppercase text-xs mb-4 font-mono">Original Music</p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-cream-100 mb-6 leading-tight">
-              Truth Through <span className="italic text-cream-300">Laughter</span>
+              Lyricist & <span className="italic text-cream-300">Composer</span>
             </h2>
             <div className="w-12 h-[1px] bg-gold-500/30 mx-auto mb-6" />
             <p className="text-cream-300 font-light text-lg max-w-xl mx-auto">
-              Finding humor in life's absurdities — sharp, multilingual, and deeply human.
+              Expressing emotions through melody and words — crafting memorable musical experiences.
             </p>
           </div>
         </ScrollReveal>

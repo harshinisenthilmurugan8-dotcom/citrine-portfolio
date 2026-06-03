@@ -5,10 +5,48 @@ import ScrollReveal from '../ui/ScrollReveal';
 import SectionHeading from '../ui/SectionHeading';
 
 const podcasts = [
-  { title: 'VinSanity Pod', year: '2025', image: '/images/podcast-vinsanity.png', description: 'Raw conversations, unfiltered opinions, and pure entertainment.' },
-  { title: 'Vibefully with Vin', year: '2023', image: '/images/podcast-vibefully.png', description: 'Chill vibes, deep talks, and good energy.' },
-  { title: 'The Podcast Thingy', year: '2021', image: '/images/podcast-thingy.png', description: 'Where it all started — quirky, fun, and experimental.' },
-  { title: 'Creator Chronicles', year: '2026', image: '/images/podcast-vinsanity.png', description: 'A dummy podcast to demonstrate the full circular scrolling experience.' },
+  { 
+    title: "Vibefully #02 - Keerthika on studying in NIFT, Science behind fashion, Work, Life & More...", 
+    year: '2022', 
+    image: 'https://img.youtube.com/vi/R1TRpT99PSo/hqdefault.jpg', 
+    description: 'A deep dive into fashion science and NIFT experiences.', 
+    link: 'https://youtu.be/R1TRpT99PSo' 
+  },
+  { 
+    title: "Vibefully #01 - Shirish Pelakur on living & studying in the US, education and more...", 
+    year: '2022', 
+    image: 'https://img.youtube.com/vi/_dOINxqAbEs/hqdefault.jpg', 
+    description: 'Discussions on living abroad, US education, and adapting to a new culture.', 
+    link: 'https://youtu.be/_dOINxqAbEs' 
+  },
+  { 
+    title: "The Podcast Thingy Ep.01 - Parenting, Culture & More | Vinod Naraen ft. Tess", 
+    year: '2021', 
+    image: 'https://img.youtube.com/vi/tmeP2RHBEPc/hqdefault.jpg', 
+    description: 'An engaging talk exploring parenting dynamics and cultural perspectives.', 
+    link: 'https://youtu.be/tmeP2RHBEPc' 
+  },
+  { 
+    title: "School Stories | VinSanity Reads Reddit", 
+    year: '2023', 
+    image: 'https://img.youtube.com/vi/WDOoDxy8HSE/hqdefault.jpg', 
+    description: 'Reacting to some of the wildest and most relatable school stories from Reddit.', 
+    link: 'https://youtu.be/WDOoDxy8HSE' 
+  },
+  { 
+    title: "Red Flags Stories | VinSanity Reads Reddit", 
+    year: '2023', 
+    image: 'https://img.youtube.com/vi/CACIU-fwaXk/hqdefault.jpg', 
+    description: 'Uncovering hilarious and shocking relationship red flags submitted online.', 
+    link: 'https://youtu.be/CACIU-fwaXk' 
+  },
+  { 
+    title: "Cheating Stories | VinSanity Reads Reddit", 
+    year: '2023', 
+    image: 'https://img.youtube.com/vi/ueOpj2f-IGU/hqdefault.jpg', 
+    description: 'Reading through dramatic cheating confessions and stories from the internet.', 
+    link: 'https://youtu.be/ueOpj2f-IGU' 
+  },
 ];
 
 export default function PodcastSection() {
@@ -73,7 +111,7 @@ export default function PodcastSection() {
   };
 
   return (
-    <section id="podcasts" className="relative py-32 px-6 overflow-hidden">
+    <section id="podcasts" className="relative py-20 md:py-32 px-4 md:px-8 overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <SectionHeading title="Podcast Episodes" subtitle="Listen in on conversations that entertain, inspire, and make you think." />
         <div 
@@ -102,15 +140,23 @@ export default function PodcastSection() {
                   }}
                 >
                   {/* Cover image */}
-                  <div className="relative aspect-square overflow-hidden">
+                  <div className="relative aspect-video overflow-hidden">
                     <motion.img src={pod.image} alt={pod.title} className="w-full h-full object-cover" whileHover={{ scale: 1.08 }} transition={{ duration: 0.6 }} />
                     <div className="absolute inset-0 bg-gradient-to-t from-wine-900 via-wine-900/40 to-transparent" />
                     
                     {/* Play button overlay - only fully active when card is center */}
                     <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isActive ? 'opacity-100 group-hover:opacity-100' : 'opacity-0'}`}>
-                      <motion.div className="w-16 h-16 rounded-full bg-gold-500 flex items-center justify-center shadow-lg" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} data-cursor="hover">
+                      <motion.a 
+                        href={pod.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-16 h-16 rounded-full bg-gold-500 flex items-center justify-center shadow-lg" 
+                        whileHover={{ scale: 1.1 }} 
+                        whileTap={{ scale: 0.9 }} 
+                        data-cursor="hover"
+                      >
                         <Play size={24} weight="fill" className="text-wine-900 ml-1" />
-                      </motion.div>
+                      </motion.a>
                     </div>
                   </div>
                   
@@ -120,14 +166,21 @@ export default function PodcastSection() {
                       <Headphones size={14} className="text-gold-500" weight="fill" />
                       <span className="text-gold-500 text-xs tracking-[0.2em] uppercase font-mono">{pod.year}</span>
                     </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-cream-100 mb-2 transition-colors duration-300 font-display">{pod.title}</h3>
-                    <p className="text-cream-300 text-sm leading-relaxed mb-6">{pod.description}</p>
+                    <h3 className="text-xl md:text-2xl font-bold text-cream-100 mb-2 transition-colors duration-300 font-display line-clamp-2" title={pod.title}>{pod.title}</h3>
+                    <p className="text-cream-300 text-sm leading-relaxed mb-6 line-clamp-2">{pod.description}</p>
                     
                     {isActive && (
-                      <motion.button className="flex items-center gap-2 text-gold-500/70 hover:text-gold-500 text-sm transition-colors uppercase tracking-widest font-mono" whileHover={{ x: 4 }} data-cursor="hover">
+                      <motion.a 
+                        href={pod.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-gold-500/70 hover:text-gold-500 text-sm transition-colors uppercase tracking-widest font-mono" 
+                        whileHover={{ x: 4 }} 
+                        data-cursor="hover"
+                      >
                         <span>Listen Now</span>
                         <ArrowUpRight size={14} />
-                      </motion.button>
+                      </motion.a>
                     )}
                   </div>
                 </motion.div>

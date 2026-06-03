@@ -2,7 +2,7 @@ import ScrollReveal from '../ui/ScrollReveal';
 
 export default function AboutSection() {
   return (
-    <section id="about" className="relative py-32 px-6 lg:px-12 bg-wine-900 border-t border-wine-700/30 overflow-hidden">
+    <section id="about" className="relative py-20 md:py-32 px-4 md:px-8 lg:px-12 bg-wine-900 border-t border-wine-700/30 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <ScrollReveal>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start pt-8 lg:pt-0">

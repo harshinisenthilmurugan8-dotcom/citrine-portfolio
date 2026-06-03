@@ -22,13 +22,13 @@ export default function BlogSection() {
   };
 
   return (
-    <section id="blog" className="relative py-32 px-6 lg:px-12 bg-wine-800/20 border-y border-wine-700/30">
+    <section id="blog" className="relative py-20 md:py-32 px-4 md:px-8 lg:px-12 bg-wine-800/20 border-y border-wine-700/30">
       <div className="max-w-6xl mx-auto">
         <ScrollReveal>
-          <div className="mb-20 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-8">
+          <div className="mb-12 md:mb-20 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-8">
             <div>
               <p className="text-gold-500 tracking-[0.2em] uppercase text-xs mb-4 font-mono">Journal</p>
-              <h2 className="text-5xl md:text-6xl font-display text-cream-100">Writings & Thoughts</h2>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-cream-100">Writings & Thoughts</h2>
             </div>
             <p className="text-cream-300 font-light max-w-sm text-sm">
               Reflections on creativity, storytelling, and the art of navigating multiple passions.
@@ -41,7 +41,7 @@ export default function BlogSection() {
             <ScrollReveal key={post.id} delay={i * 0.1}>
               <motion.button
                 onClick={() => openPost(post)}
-                className="group w-full text-left py-8 px-6 md:px-10 rounded-sm border border-wine-700/50 bg-wine-800/40 hover:bg-wine-700/40 transition-colors duration-500 relative overflow-hidden"
+                className="group w-full text-left py-8 px-4 md:px-8 md:px-10 rounded-sm border border-wine-700/50 bg-wine-800/40 hover:bg-wine-700/40 transition-colors duration-500 relative overflow-hidden"
                 whileHover={{ x: 8 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 data-cursor="hover"

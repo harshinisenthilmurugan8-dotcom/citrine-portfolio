@@ -24,7 +24,7 @@ export default function TestimonialsSection() {
   const prev = () => setCurrent((p) => (p - 1 + testimonials.length) % testimonials.length);
 
   return (
-    <section id="testimonials" className="relative py-32 px-6">
+    <section id="testimonials" className="relative py-20 md:py-32 px-4 md:px-8">
       <div className="max-w-4xl mx-auto">
         <SectionHeading title="What People Are Saying" subtitle="Testimonials from listeners, readers, and audience members." />
         <ScrollReveal>

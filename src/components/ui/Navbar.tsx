@@ -5,7 +5,7 @@ import { gsap } from 'gsap';
 
 const navItems = [
   { label: 'Home', href: '#hero' },
-  { label: 'About', href: '#expertise' },
+  { label: 'About', href: '#about' },
   { label: 'Work', href: '#featured' },
   { label: 'Books', href: '#books' },
   { label: 'Podcast', href: '#podcasts' },
@@ -37,11 +37,10 @@ export default function Navbar() {
     <>
       <nav
         ref={navRef}
-        className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-500 ${
-          isScrolled
+        className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-500 ${isScrolled
             ? 'bg-wine-900/85 backdrop-blur-xl border-b border-gold-500/10'
             : 'bg-transparent'
-        }`}
+          }`}
       >
         <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
           {/* Logo */}

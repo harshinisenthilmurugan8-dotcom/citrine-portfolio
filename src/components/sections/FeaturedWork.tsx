@@ -7,20 +7,21 @@ const categories = [
   { id: 'books', label: 'Books' },
   { id: 'podcasts', label: 'Podcasts' },
   { id: 'comedy', label: 'Comedy' },
+  { id: 'music', label: 'Lyricist & Composer' },
 ];
 
 export default function FeaturedWork() {
   const [activeCategory, setActiveCategory] = useState('books');
 
   return (
-    <section id="featured" className="relative py-32 px-6 lg:px-12 border-t border-wine-700/50">
+    <section id="featured" className="relative py-20 md:py-32 px-4 md:px-8 lg:px-12 border-t border-wine-700/50">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-start justify-between gap-12 lg:gap-24">
         
         {/* Header */}
         <ScrollReveal className="lg:w-1/3">
           <p className="text-gold-500 tracking-[0.2em] uppercase text-xs mb-6 font-mono">Portfolio</p>
-          <h2 className="text-5xl md:text-6xl font-display text-cream-100 mb-8 leading-tight">Featured <br/><span className="italic text-cream-300">Works</span></h2>
-          <p className="text-cream-300 font-light text-lg">Explore creative works spanning literature, audio narratives, and live comedy performances.</p>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-cream-100 mb-8 leading-tight">Featured <br/><span className="italic text-cream-300">Works</span></h2>
+          <p className="text-cream-300 font-light text-lg">Explore creative works spanning literature, audio narratives, live comedy performances, and original music.</p>
         </ScrollReveal>
 
         {/* Categories */}

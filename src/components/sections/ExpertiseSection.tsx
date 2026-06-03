@@ -8,7 +8,7 @@ const panels = [
   {
     number: '01',
     title: 'Author',
-    descriptor: 'Crafting narratives that explore the human experience',
+    descriptor: 'Vinod Naraen began his author journey on September 1, 2025, with an impulsive decision to write a novel. He completed his first novel in just two and a half days, proving that passion and determination can create extraordinary results.',
     anchor: 'bottom-left',
     image: '/images/author.png',
     objectPosition: 'center 15%',
@@ -16,41 +16,41 @@ const panels = [
   },
   {
     number: '02',
-    title: 'Podcaster',
-    descriptor: 'Intentional conversations — unfiltered, deep, alive',
-    anchor: 'top-right',
-    image: '/images/Podcaster.jpeg',
-    objectPosition: 'center 10%',
-    skipWonk: false,
-  },
-  {
-    number: '03',
-    title: 'Standup Comedian',
-    descriptor: 'Truth through laughter — multilingual, sharp, human',
-    anchor: 'bottom-left',
-    image: '/images/Comedian.jpeg',
-    objectPosition: 'center top',
-    containerTop: '15vh',
-    skipWonk: false,
-  },
-  {
-    number: '04',
     title: 'Publisher',
-    descriptor: 'Curating and elevating stories that deserve to be heard',
+    descriptor: 'Believing that every writer deserves a platform, Vinod Naraen founded his own publishing company with the vision of encouraging emerging authors.',
     anchor: 'top-right',
     image: '/images/Publisher.png',
     objectPosition: 'center 15%',
     skipWonk: false,
   },
   {
-    number: '05',
+    number: '03',
     title: 'Lyricist &',
     titleLine2: 'Music Composer',
-    descriptor: 'Translating raw emotions into melodies and verses',
+    descriptor: 'A trained Carnatic singer, Vinod\'s love for music naturally evolved into songwriting and composition. As a lyricist and music composer, he enjoys transforming emotions, experiences, and ideas into melodies and meaningful lyrics.',
     anchor: 'bottom-left',
     image: '/images/Lyricist.jpeg',
     objectPosition: 'center 15%',
     skipWonk: true,
+  },
+  {
+    number: '04',
+    title: 'Podcaster',
+    descriptor: 'Known for his energetic personality and enthusiasm for conversation, Vinod ventured into podcasting as a way to engage with people and explore a wide range of topics.',
+    anchor: 'top-right',
+    image: '/images/Podcaster.jpeg',
+    objectPosition: 'center 10%',
+    skipWonk: false,
+  },
+  {
+    number: '05',
+    title: 'Standup Comedian',
+    descriptor: 'Vinod also started Stand-Up Comedy as a passion and enjoys it — bringing truth through laughter, multilingual, sharp, and deeply human.',
+    anchor: 'bottom-left',
+    image: '/images/Comedian.jpeg',
+    objectPosition: 'center top',
+    containerTop: '15vh',
+    skipWonk: false,
   },
 ];
 
@@ -150,9 +150,8 @@ export default function ExpertiseSection() {
 
               {/* Background Image — CSS mask for seamless edge blending */}
               <div
-                className={`absolute w-[90%] md:w-[60%] lg:w-[55%] h-[75vh] max-h-[850px] z-0 pointer-events-none ${
-                  isTopRight ? 'bottom-0 left-0 md:bottom-0 md:left-0' : 'right-0 md:right-0'
-                }`}
+                className={`absolute w-[90%] md:w-[60%] lg:w-[55%] h-[75vh] max-h-[850px] z-0 pointer-events-none ${isTopRight ? 'bottom-0 left-0 md:bottom-0 md:left-0' : 'right-0 md:right-0'
+                  }`}
                 style={{
                   top: !isTopRight ? (panel.containerTop || '0') : undefined,
                   WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)',
@@ -172,8 +171,8 @@ export default function ExpertiseSection() {
               {/* Panel content — asymmetric anchoring */}
               <div
                 className={`absolute px-12 lg:px-20 py-20 max-w-3xl z-10 ${isTopRight
-                    ? 'top-0 right-0 text-right'
-                    : 'bottom-0 left-0 text-left'
+                  ? 'top-0 right-0 text-right'
+                  : 'bottom-0 left-0 text-left'
                   }`}
               >
                 {/* Role title — massive Fraunces */}
@@ -199,10 +198,10 @@ export default function ExpertiseSection() {
                     }`}
                 />
 
-                {/* Italic descriptor — small caps feel */}
+                {/* Descriptor */}
                 <p
-                  className="text-cream-300 font-light text-xl italic tracking-wide"
-                  style={{ fontFamily: "'Bodoni Moda', serif" }}
+                  className="text-cream-300 font-light text-base md:text-lg leading-relaxed max-w-xl opacity-80"
+                  style={{ fontFamily: "'Manrope', sans-serif" }}
                 >
                   {panel.descriptor}
                 </p>

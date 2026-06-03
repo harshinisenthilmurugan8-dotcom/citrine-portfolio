@@ -72,7 +72,7 @@ export default function HeroSection() {
     <section
       id="hero"
       ref={sectionRef}
-      className="relative min-h-screen flex items-center pt-24 pb-12 px-6 lg:px-12 overflow-hidden bg-wine-900"
+      className="relative min-h-screen flex items-center pt-24 pb-12 px-4 md:px-8 lg:px-12 overflow-hidden bg-wine-900"
     >
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
 
