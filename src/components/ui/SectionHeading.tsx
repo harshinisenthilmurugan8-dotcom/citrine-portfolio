@@ -37,7 +37,6 @@ export default function SectionHeading({ title, subtitle, align = 'center' }: Se
 
   const setRefs = (node: HTMLDivElement | null) => {
     inViewRef(node);
-    // @ts-expect-error ref assignment
     containerRef.current = node;
   };
 

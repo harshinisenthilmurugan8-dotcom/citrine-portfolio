@@ -1,11 +1,11 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface TextScrambleProps {
   text: string;
   className?: string;
   delay?: number; // ms before scramble starts
   duration?: number; // ms total duration
-  as?: keyof JSX.IntrinsicElements;
+  as?: React.ElementType;
 }
 
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%&*';
@@ -97,6 +97,5 @@ export default function TextScramble({
     };
   }, [text, delay, duration]);
 
-  // @ts-expect-error dynamic tag
   return <Tag ref={ref} className={className} aria-label={text}>{text}</Tag>;
 }
