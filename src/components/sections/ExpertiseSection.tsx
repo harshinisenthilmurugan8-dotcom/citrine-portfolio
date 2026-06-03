@@ -65,7 +65,7 @@ export default function ExpertiseSection() {
 
     const mm = gsap.matchMedia();
 
-    mm.add('all', () => {
+    mm.add('(min-width: 768px)', () => {
       const panelEls = track.querySelectorAll('.expertise-panel');
 
       const tl = gsap.timeline({
@@ -104,18 +104,24 @@ export default function ExpertiseSection() {
       ref={sectionRef}
       className="relative bg-wine-900 border-t border-wine-700/30 overflow-hidden h-screen"
     >
-      {/* Horizontal track */}
+      <style>{`
+        .hide-scroll::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
+      
+      {/* Horizontal track - Native zero-JS CSS swipe on mobile, GSAP translate on desktop */}
       <div
         ref={trackRef}
-        className="flex h-full"
-        style={{ width: `${panels.length * 100}vw`, willChange: 'transform' }}
+        className="flex h-full hide-scroll overflow-x-auto overflow-y-hidden snap-x snap-mandatory touch-pan-x md:overflow-visible md:snap-none"
+        style={{ width: '100%', willChange: 'transform', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {panels.map((panel, i) => {
           const isTopRight = panel.anchor === 'top-right';
           return (
             <div
               key={panel.number}
-              className="expertise-panel relative flex-shrink-0 h-full border-r border-gold-500/15"
+              className="expertise-panel relative flex-shrink-0 h-full border-r border-gold-500/15 snap-center md:snap-none"
               style={{ width: '100vw' }}
             >
               {/* Ghost watermark number */}
