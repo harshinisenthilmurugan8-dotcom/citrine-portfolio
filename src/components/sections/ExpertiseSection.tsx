@@ -65,24 +65,26 @@ export default function ExpertiseSection() {
 
     const mm = gsap.matchMedia();
 
-    mm.add('(min-width: 768px)', () => {
+    mm.add('all', () => {
       const panelEls = track.querySelectorAll('.expertise-panel');
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           pin: true,
-          scrub: true, // Changed from 1 to true for instant touch tracking without artificial lag
+          // 0.15s of scrubbing masks choppy scroll events from low-spec CPUs without feeling laggy
+          scrub: 0.15, 
           start: 'top top',
-          end: () => `+=${track.scrollWidth - window.innerWidth}`,
+          end: () => `+=${track.offsetWidth * ((panels.length - 1) / panels.length)}`,
           invalidateOnRefresh: true,
           anticipatePin: 1,
         },
       });
 
       tl.to(track, {
-        x: () => -(track.scrollWidth - window.innerWidth),
-        ease: 'none'
+        xPercent: -(100 - (100 / panels.length)), 
+        ease: 'none',
+        force3D: true // Explicitly force hardware acceleration on all phones
       });
 
       // Aggressive mobile optimization: Removed fontVariationSettings morphing.
@@ -104,61 +106,53 @@ export default function ExpertiseSection() {
       ref={sectionRef}
       className="relative bg-wine-900 border-t border-wine-700/30 overflow-hidden h-screen"
     >
-      <style>{`
-        .hide-scroll::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
-      
-      {/* Horizontal track - Native zero-JS CSS swipe on mobile, GSAP translate on desktop */}
+      {/* Horizontal track */}
       <div
         ref={trackRef}
-        className="flex h-full hide-scroll overflow-x-auto overflow-y-hidden snap-x snap-mandatory touch-pan-x md:overflow-visible md:snap-none"
-        style={{ width: '100%', willChange: 'transform', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        className="flex h-full"
+        style={{ width: `${panels.length * 100}vw` }}
       >
         {panels.map((panel, i) => {
           const isTopRight = panel.anchor === 'top-right';
           return (
             <div
               key={panel.number}
-              className="expertise-panel relative flex-shrink-0 h-full border-r border-gold-500/15 snap-center md:snap-none"
+              className="expertise-panel relative flex-shrink-0 h-full border-r border-gold-500/15"
               style={{ width: '100vw' }}
             >
-              {/* Ghost watermark number */}
+              {/* Ghost watermark number — Optimized for low-RAM phones (Render small, scale up via GPU to save texture memory) */}
               <span
-                className="absolute inset-0 flex items-center justify-center font-display text-[40vw] leading-none select-none pointer-events-none text-wine-700/30 tracking-tighter"
+                className="absolute inset-0 flex items-center justify-center font-display leading-none select-none pointer-events-none text-wine-700/30 tracking-tighter"
                 aria-hidden="true"
                 style={{
                   fontFamily: "'Fraunces', serif",
                   fontVariationSettings: '"opsz" 144, "WONK" 0',
                   opacity: 0.12,
+                  fontSize: '10vw',
+                  transform: 'scale(4)',
                 }}
               >
                 {panel.number}
               </span>
 
-              {/* Background Image — Optimized with Overlays instead of Masks */}
+              {/* Background Image — Optimized with a single radial overlay to prevent GPU Fill-Rate lag */}
               <div
                 className={`absolute w-[90%] md:w-[60%] lg:w-[55%] h-[75vh] max-h-[850px] z-0 pointer-events-none ${isTopRight ? 'bottom-0 left-0 md:bottom-0 md:left-0' : 'right-0 md:right-0'
                   }`}
-                style={{
-                  top: !isTopRight ? (panel.containerTop || '0') : undefined,
-                  transform: 'translate3d(0,0,0)', // Strict hardware acceleration
-                }}
+                style={{ top: !isTopRight ? (panel.containerTop || '0') : undefined }}
               >
                 <img
                   src={panel.image}
                   alt={panel.title}
                   className="w-full h-full object-cover"
                   style={{ objectPosition: panel.objectPosition }}
-                  loading="lazy"
-                  decoding="async"
                 />
                 
-                {/* Cheap GPU gradient overlays to fake the mask and filters without destroying framerate */}
-                <div className="absolute inset-0 bg-wine-900/20" /> {/* Fakes brightness down */}
-                <div className="absolute inset-0 bg-gradient-to-r from-wine-900 via-transparent to-wine-900" />
-                <div className="absolute inset-0 bg-gradient-to-b from-wine-900 via-transparent to-wine-900" />
+                {/* Single optimized gradient overlay instead of multiple heavy ones */}
+                <div 
+                  className="absolute inset-0"
+                  style={{ background: 'radial-gradient(ellipse at center, transparent 30%, #1A0B10 85%)' }}
+                />
               </div>
 
               {/* Panel content — asymmetric anchoring */}
