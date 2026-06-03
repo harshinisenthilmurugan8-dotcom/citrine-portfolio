@@ -115,10 +115,7 @@ export default function ExpertiseSection() {
             <div
               key={panel.number}
               className="expertise-panel relative flex-shrink-0 h-full border-r border-gold-500/15"
-              style={{
-                width: '100vw',
-                contain: 'layout style paint',
-              }}
+              style={{ width: '100vw' }}
             >
               {/* Ghost watermark number — hidden on mobile to save RAM, visible on tablet+ */}
               <span
@@ -133,36 +130,34 @@ export default function ExpertiseSection() {
                 {panel.number}
               </span>
 
-              {/* Background Image — smaller on mobile, no overlay on mobile for max perf */}
+              {/* Background Image — Optimized with a single radial mask to perfectly smudge all 4 edges */}
               <div
-                className={`absolute w-[70%] md:w-[60%] lg:w-[55%] h-[50vh] md:h-[75vh] max-h-[850px] z-0 pointer-events-none ${isTopRight ? 'bottom-0 left-0 md:bottom-0 md:left-0' : 'right-0 md:right-0'
+                className={`absolute w-[90%] md:w-[60%] lg:w-[55%] h-[75vh] max-h-[850px] z-0 pointer-events-none ${isTopRight ? 'bottom-0 left-0 md:bottom-0 md:left-0' : 'right-0 md:right-0'
                   }`}
-                style={{ top: !isTopRight ? (panel.containerTop || '0') : undefined }}
+                style={{ 
+                  top: !isTopRight ? (panel.containerTop || '0') : undefined,
+                  WebkitMaskImage: 'radial-gradient(ellipse closest-side at center, black 30%, transparent 100%)',
+                  maskImage: 'radial-gradient(ellipse closest-side at center, black 30%, transparent 100%)',
+                }}
               >
                 <img
                   src={panel.image}
                   alt={panel.title}
-                  className="w-full h-full object-cover opacity-40 md:opacity-100"
+                  className="w-full h-full object-cover"
                   style={{ objectPosition: panel.objectPosition }}
-                />
-
-                {/* Radial overlay — only on md+ screens, mobile uses simple opacity instead */}
-                <div
-                  className="absolute inset-0 hidden md:block"
-                  style={{ background: 'radial-gradient(ellipse at center, transparent 30%, #1A0B10 85%)' }}
                 />
               </div>
 
               {/* Panel content — asymmetric anchoring */}
               <div
-                className={`absolute px-6 md:px-12 lg:px-20 py-12 md:py-20 max-w-3xl z-10 ${isTopRight
+                className={`absolute px-12 lg:px-20 py-24 md:py-20 max-w-3xl z-10 ${isTopRight
                   ? 'top-0 right-0 text-right'
                   : 'bottom-0 left-0 text-left'
                   }`}
               >
                 {/* Role title */}
                 <h2
-                  className="panel-title text-[12vw] md:text-[10vw] lg:text-[8rem] leading-[0.85] tracking-tight text-cream-100 mb-4 md:mb-6"
+                  className="panel-title text-[15vw] md:text-[10vw] lg:text-[8rem] leading-[0.85] tracking-tight text-cream-100 mb-6"
                   style={{
                     fontFamily: "'Fraunces', serif",
                     fontVariationSettings: panel.skipWonk ? '"opsz" 144, "WONK" 1' : '"opsz" 9, "WONK" 0',
@@ -179,20 +174,20 @@ export default function ExpertiseSection() {
 
                 {/* Gold thin rule */}
                 <div
-                  className={`h-[1px] bg-gold-500/40 w-24 mb-4 md:mb-6 ${isTopRight ? 'ml-auto' : ''
+                  className={`h-[1px] bg-gold-500/40 w-24 mb-6 ${isTopRight ? 'ml-auto' : ''
                     }`}
                 />
 
                 {/* Descriptor */}
                 <p
-                  className="text-cream-300 font-light text-sm md:text-base lg:text-lg leading-relaxed max-w-xl opacity-80"
+                  className="text-cream-300 font-light text-base md:text-lg leading-relaxed max-w-xl opacity-80"
                   style={{ fontFamily: "'Manrope', sans-serif" }}
                 >
                   {panel.descriptor}
                 </p>
 
                 {/* Number in corner — small mono */}
-                <span className="absolute top-4 md:top-8 left-6 md:left-12 lg:left-20 text-gold-500/40 font-mono text-xs tracking-[0.3em]">
+                <span className="absolute top-8 left-12 lg:left-20 text-gold-500/40 font-mono text-xs tracking-[0.3em]">
                   {panel.number} / 0{panels.length}
                 </span>
               </div>
