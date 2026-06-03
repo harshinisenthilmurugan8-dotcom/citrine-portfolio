@@ -85,26 +85,9 @@ export default function ExpertiseSection() {
         ease: 'none'
       });
 
-      // Variable font WONK morphing — skip panels with special characters
-      panelEls.forEach((panel, i) => {
-        if (panels[i]?.skipWonk) return;
-        const titleEl = panel.querySelector('.panel-title');
-        if (!titleEl) return;
-        gsap.fromTo(
-          titleEl,
-          { fontVariationSettings: '"opsz" 9, "WONK" 0' },
-          {
-            fontVariationSettings: '"opsz" 144, "WONK" 1',
-            scrollTrigger: {
-              trigger: panel,
-              containerAnimation: tl,
-              start: 'left center',
-              end: 'right center',
-              scrub: true,
-            },
-          }
-        );
-      });
+      // Aggressive mobile optimization: Removed fontVariationSettings morphing.
+      // Animating variable fonts on scrub forces layout/paint every single frame,
+      // which completely destroys frame rates on mobile devices.
 
       return () => {
         tl.kill();
@@ -124,8 +107,8 @@ export default function ExpertiseSection() {
       {/* Horizontal track */}
       <div
         ref={trackRef}
-        className="flex h-full will-change-transform"
-        style={{ width: `${panels.length * 100}vw` }}
+        className="flex h-full"
+        style={{ width: `${panels.length * 100}vw`, willChange: 'transform' }}
       >
         {panels.map((panel, i) => {
           const isTopRight = panel.anchor === 'top-right';
@@ -148,25 +131,28 @@ export default function ExpertiseSection() {
                 {panel.number}
               </span>
 
-              {/* Background Image — CSS mask for seamless edge blending */}
+              {/* Background Image — Optimized with Overlays instead of Masks */}
               <div
                 className={`absolute w-[90%] md:w-[60%] lg:w-[55%] h-[75vh] max-h-[850px] z-0 pointer-events-none ${isTopRight ? 'bottom-0 left-0 md:bottom-0 md:left-0' : 'right-0 md:right-0'
                   }`}
                 style={{
                   top: !isTopRight ? (panel.containerTop || '0') : undefined,
-                  WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)',
-                  maskImage: 'linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)',
-                  WebkitMaskComposite: 'destination-in',
-                  maskComposite: 'intersect',
-                  transform: 'translateZ(0)',
+                  transform: 'translate3d(0,0,0)', // Strict hardware acceleration
                 }}
               >
                 <img
                   src={panel.image}
                   alt={panel.title}
-                  className="w-full h-full object-cover grayscale-[20%] brightness-[0.85]"
+                  className="w-full h-full object-cover"
                   style={{ objectPosition: panel.objectPosition }}
+                  loading="lazy"
+                  decoding="async"
                 />
+                
+                {/* Cheap GPU gradient overlays to fake the mask and filters without destroying framerate */}
+                <div className="absolute inset-0 bg-wine-900/20" /> {/* Fakes brightness down */}
+                <div className="absolute inset-0 bg-gradient-to-r from-wine-900 via-transparent to-wine-900" />
+                <div className="absolute inset-0 bg-gradient-to-b from-wine-900 via-transparent to-wine-900" />
               </div>
 
               {/* Panel content — asymmetric anchoring */}
