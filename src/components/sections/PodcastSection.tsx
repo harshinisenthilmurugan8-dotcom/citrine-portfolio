@@ -187,6 +187,18 @@ export default function PodcastSection() {
               );
             })}
           </AnimatePresence>
+
+          {/* Swipe hints — absolute positioning on left and right */}
+          <div className="absolute left-1 md:left-4 bottom-10 md:top-1/2 md:-translate-y-1/2 z-20 pointer-events-none">
+            <span className="text-gold-500/50 text-[9px] md:text-xs tracking-widest md:tracking-[0.25em] uppercase font-mono bg-wine-900/50 md:bg-transparent px-2 py-1 rounded-full backdrop-blur-sm md:backdrop-blur-none">
+              ← Swipe
+            </span>
+          </div>
+          <div className="absolute right-1 md:right-4 bottom-10 md:top-1/2 md:-translate-y-1/2 z-20 pointer-events-none">
+            <span className="text-gold-500/50 text-[9px] md:text-xs tracking-widest md:tracking-[0.25em] uppercase font-mono bg-wine-900/50 md:bg-transparent px-2 py-1 rounded-full backdrop-blur-sm md:backdrop-blur-none">
+              Swipe →
+            </span>
+          </div>
         </div>
 
         {/* Navigation Arrows */}

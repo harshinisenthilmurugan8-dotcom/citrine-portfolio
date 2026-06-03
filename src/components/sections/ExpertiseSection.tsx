@@ -66,14 +66,11 @@ export default function ExpertiseSection() {
     const mm = gsap.matchMedia();
 
     mm.add('all', () => {
-      const panelEls = track.querySelectorAll('.expertise-panel');
-
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           pin: true,
-          // 0.15s of scrubbing masks choppy scroll events from low-spec CPUs without feeling laggy
-          scrub: 0.15, 
+          scrub: 0.15,
           start: 'top top',
           end: () => `+=${track.offsetWidth * ((panels.length - 1) / panels.length)}`,
           invalidateOnRefresh: true,
@@ -82,14 +79,10 @@ export default function ExpertiseSection() {
       });
 
       tl.to(track, {
-        xPercent: -(100 - (100 / panels.length)), 
+        xPercent: -(100 - (100 / panels.length)),
         ease: 'none',
-        force3D: true // Explicitly force hardware acceleration on all phones
+        force3D: true,
       });
-
-      // Aggressive mobile optimization: Removed fontVariationSettings morphing.
-      // Animating variable fonts on scrub forces layout/paint every single frame,
-      // which completely destroys frame rates on mobile devices.
 
       return () => {
         tl.kill();
@@ -106,11 +99,15 @@ export default function ExpertiseSection() {
       ref={sectionRef}
       className="relative bg-wine-900 border-t border-wine-700/30 overflow-hidden h-screen"
     >
-      {/* Horizontal track */}
+      {/* Horizontal track — backface-visibility ensures dedicated GPU layer */}
       <div
         ref={trackRef}
         className="flex h-full"
-        style={{ width: `${panels.length * 100}vw` }}
+        style={{
+          width: `${panels.length * 100}vw`,
+          backfaceVisibility: 'hidden',
+          WebkitBackfaceVisibility: 'hidden',
+        }}
       >
         {panels.map((panel, i) => {
           const isTopRight = panel.anchor === 'top-right';
@@ -118,53 +115,54 @@ export default function ExpertiseSection() {
             <div
               key={panel.number}
               className="expertise-panel relative flex-shrink-0 h-full border-r border-gold-500/15"
-              style={{ width: '100vw' }}
+              style={{
+                width: '100vw',
+                contain: 'layout style paint',
+              }}
             >
-              {/* Ghost watermark number — Optimized for low-RAM phones (Render small, scale up via GPU to save texture memory) */}
+              {/* Ghost watermark number — hidden on mobile to save RAM, visible on tablet+ */}
               <span
-                className="absolute inset-0 flex items-center justify-center font-display leading-none select-none pointer-events-none text-wine-700/30 tracking-tighter"
+                className="absolute inset-0 items-center justify-center font-display text-[40vw] leading-none select-none pointer-events-none text-wine-700/30 tracking-tighter hidden md:flex"
                 aria-hidden="true"
                 style={{
                   fontFamily: "'Fraunces', serif",
                   fontVariationSettings: '"opsz" 144, "WONK" 0',
                   opacity: 0.12,
-                  fontSize: '10vw',
-                  transform: 'scale(4)',
                 }}
               >
                 {panel.number}
               </span>
 
-              {/* Background Image — Optimized with a single radial overlay to prevent GPU Fill-Rate lag */}
+              {/* Background Image — smaller on mobile, no overlay on mobile for max perf */}
               <div
-                className={`absolute w-[90%] md:w-[60%] lg:w-[55%] h-[75vh] max-h-[850px] z-0 pointer-events-none ${isTopRight ? 'bottom-0 left-0 md:bottom-0 md:left-0' : 'right-0 md:right-0'
+                className={`absolute w-[70%] md:w-[60%] lg:w-[55%] h-[50vh] md:h-[75vh] max-h-[850px] z-0 pointer-events-none ${isTopRight ? 'bottom-0 left-0 md:bottom-0 md:left-0' : 'right-0 md:right-0'
                   }`}
                 style={{ top: !isTopRight ? (panel.containerTop || '0') : undefined }}
               >
                 <img
                   src={panel.image}
                   alt={panel.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover opacity-40 md:opacity-100"
                   style={{ objectPosition: panel.objectPosition }}
                 />
-                
-                {/* Single optimized gradient overlay instead of multiple heavy ones */}
-                <div 
-                  className="absolute inset-0"
+
+                {/* Radial overlay — only on md+ screens, mobile uses simple opacity instead */}
+                <div
+                  className="absolute inset-0 hidden md:block"
                   style={{ background: 'radial-gradient(ellipse at center, transparent 30%, #1A0B10 85%)' }}
                 />
               </div>
 
               {/* Panel content — asymmetric anchoring */}
               <div
-                className={`absolute px-12 lg:px-20 py-20 max-w-3xl z-10 ${isTopRight
+                className={`absolute px-6 md:px-12 lg:px-20 py-12 md:py-20 max-w-3xl z-10 ${isTopRight
                   ? 'top-0 right-0 text-right'
                   : 'bottom-0 left-0 text-left'
                   }`}
               >
-                {/* Role title — massive Fraunces */}
+                {/* Role title */}
                 <h2
-                  className="panel-title text-[15vw] md:text-[10vw] lg:text-[8rem] leading-[0.85] tracking-tight text-cream-100 mb-6"
+                  className="panel-title text-[12vw] md:text-[10vw] lg:text-[8rem] leading-[0.85] tracking-tight text-cream-100 mb-4 md:mb-6"
                   style={{
                     fontFamily: "'Fraunces', serif",
                     fontVariationSettings: panel.skipWonk ? '"opsz" 144, "WONK" 1' : '"opsz" 9, "WONK" 0',
@@ -181,20 +179,20 @@ export default function ExpertiseSection() {
 
                 {/* Gold thin rule */}
                 <div
-                  className={`h-[1px] bg-gold-500/40 w-24 mb-6 ${isTopRight ? 'ml-auto' : ''
+                  className={`h-[1px] bg-gold-500/40 w-24 mb-4 md:mb-6 ${isTopRight ? 'ml-auto' : ''
                     }`}
                 />
 
                 {/* Descriptor */}
                 <p
-                  className="text-cream-300 font-light text-base md:text-lg leading-relaxed max-w-xl opacity-80"
+                  className="text-cream-300 font-light text-sm md:text-base lg:text-lg leading-relaxed max-w-xl opacity-80"
                   style={{ fontFamily: "'Manrope', sans-serif" }}
                 >
                   {panel.descriptor}
                 </p>
 
                 {/* Number in corner — small mono */}
-                <span className="absolute top-8 left-12 lg:left-20 text-gold-500/40 font-mono text-xs tracking-[0.3em]">
+                <span className="absolute top-4 md:top-8 left-6 md:left-12 lg:left-20 text-gold-500/40 font-mono text-xs tracking-[0.3em]">
                   {panel.number} / 0{panels.length}
                 </span>
               </div>
