@@ -72,7 +72,7 @@ export default function ExpertiseSection() {
         scrollTrigger: {
           trigger: section,
           pin: true,
-          scrub: 1,
+          scrub: true, // Changed from 1 to true for instant touch tracking without artificial lag
           start: 'top top',
           end: () => `+=${track.scrollWidth - window.innerWidth}`,
           invalidateOnRefresh: true,
@@ -124,7 +124,7 @@ export default function ExpertiseSection() {
       {/* Horizontal track */}
       <div
         ref={trackRef}
-        className="flex h-full"
+        className="flex h-full will-change-transform"
         style={{ width: `${panels.length * 100}vw` }}
       >
         {panels.map((panel, i) => {
@@ -158,6 +158,7 @@ export default function ExpertiseSection() {
                   maskImage: 'linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%), linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)',
                   WebkitMaskComposite: 'destination-in',
                   maskComposite: 'intersect',
+                  transform: 'translateZ(0)',
                 }}
               >
                 <img
