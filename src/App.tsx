@@ -11,6 +11,7 @@ import ExpertiseSection from './components/sections/ExpertiseSection';
 import FeaturedWork from './components/sections/FeaturedWork';
 import BooksSection from './components/sections/BooksSection';
 import PodcastSection from './components/sections/PodcastSection';
+import MerchandiseSection from './components/sections/MerchandiseSection';
 import ComedySection from './components/sections/ComedySection';
 import MusicSection from './components/sections/MusicSection';
 import TestimonialsSection from './components/sections/TestimonialsSection';
@@ -37,6 +38,7 @@ export default function App() {
         <FeaturedWork />
         <BooksSection />
         <PodcastSection />
+        <MerchandiseSection />
         <ComedySection />
         <MusicSection />
         <TestimonialsSection />

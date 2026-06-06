@@ -6,6 +6,7 @@ import ScrollReveal from '../ui/ScrollReveal';
 const categories = [
   { id: 'books', label: 'Books' },
   { id: 'podcasts', label: 'Podcasts' },
+  { id: 'apparel', label: 'Apparel' },
   { id: 'comedy', label: 'Comedy' },
   { id: 'music', label: 'Lyricist & Composer' },
 ];

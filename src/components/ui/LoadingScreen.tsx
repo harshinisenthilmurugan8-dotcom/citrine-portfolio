@@ -64,17 +64,8 @@ export default function LoadingScreen() {
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
               <span className="gradient-text">V</span>
-              <span className="text-ivory">inod</span>
+              <span className="text-ivory">inod Naraen</span>
             </h1>
-            <motion.p
-              className="text-ivory-dim text-sm tracking-[0.3em] uppercase mt-2"
-              style={{ fontFamily: "'Space Grotesk', monospace" }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-            >
-              Multi-Talented Creator
-            </motion.p>
           </motion.div>
 
           {/* Progress bar */}
